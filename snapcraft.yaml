@@ -1,0 +1,32 @@
+name: golangci-lint
+summary: Fast linters runner for Go
+description: |
+  Runs linters in parallel, uses caching, supports yaml config, has
+  integrations with all major IDE and has dozens of linters included.
+version: 1.29.0
+
+base: core
+confinement: strict
+
+apps:
+  golangci-lint:
+    command: golangci-lint
+    plugs:
+      - home
+      - network
+
+parts:
+  golangci-lint:
+    plugin: dump
+    source: https://github.com/golangci/golangci-lint/releases/download/v1.29.0/golangci-lint-1.29.0-linux-amd64.tar.gz
+    stage:
+      - golangci-lint
+
+  # golangci-lint requires a go binary in $PATH so use the go snap for this
+  go:
+    plugin: nil
+    stage-snaps:
+      - go
+    stage-packages:
+      - libc6
+

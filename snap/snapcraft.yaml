@@ -5,7 +5,7 @@ description: |
   integrations with all major IDE and has dozens of linters included.
 version: 1.29.0
 
-base: core
+base: core18
 confinement: strict
 
 apps:
@@ -17,8 +17,8 @@ apps:
 
 parts:
   golangci-lint:
-    plugin: dump
-    source: https://github.com/golangci/golangci-lint/releases/download/v1.29.0/golangci-lint-1.29.0-linux-amd64.tar.gz
+    plugin: fetch-golangci-lint
+    version: $SNAPCRAFT_PROJECT_VERSION
     stage:
       - golangci-lint
 

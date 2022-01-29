@@ -3,7 +3,7 @@ summary: Fast linters runner for Go
 description: |
   Runs linters in parallel, uses caching, supports yaml config, has
   integrations with all major IDE and has dozens of linters included.
-version: 1.43.0
+version: 1.44.0
 
 base: core18
 confinement: strict

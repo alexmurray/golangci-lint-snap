@@ -1,0 +1,37 @@
+name: golangci-lint
+summary: Fast linters runner for Go
+description: |
+  Runs linters in parallel, uses caching, supports yaml config, has
+  integrations with all major IDE and has dozens of linters included.
+version: 1.46.2
+
+base: core20
+confinement: strict
+grade: stable
+
+apps:
+  golangci-lint:
+    command: bin/golangci-lint
+    plugs:
+      - home
+      - network
+
+parts:
+  golangci-lint:
+    plugin: go
+    source: https://github.com/golangci/golangci-lint.git
+    source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    build-packages:
+      - git
+      - gcc
+    override-build: |
+      sed -i s/'"master"'/'"'"$SNAPCRAFT_PROJECT_VERSION"'"'/ cmd/golangci-lint/main.go
+      sed -i s/'"?"'/'"'$(git rev-parse --short HEAD)'"'/ cmd/golangci-lint/main.go
+      sed -i s/'""'/'"'$(date -u +%Y-%m-%dT%TZ)'"'/ cmd/golangci-lint/main.go
+      snapcraftctl build
+
+  # golangci-lint requires a go binary in $PATH so use the go snap for this
+  go:
+    plugin: nil
+    stage-snaps:
+      - go

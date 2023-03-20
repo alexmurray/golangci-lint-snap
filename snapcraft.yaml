@@ -24,14 +24,13 @@ parts:
     build-packages:
       - git
       - gcc
+    build-snaps:
+      - go/latest/stable
+    # golangci-lint requires a go binary in $PATH so use the go snap for this
+    stage-snaps:
+      - go/latest/stable
     override-build: |
       sed -i s/'"master"'/'"'"$SNAPCRAFT_PROJECT_VERSION"'"'/ cmd/golangci-lint/main.go
       sed -i s/'"?"'/'"'$(git rev-parse --short HEAD)'"'/ cmd/golangci-lint/main.go
       sed -i s/'""'/'"'$(date -u +%Y-%m-%dT%TZ)'"'/ cmd/golangci-lint/main.go
       craftctl default
-
-  # golangci-lint requires a go binary in $PATH so use the go snap for this
-  go:
-    plugin: nil
-    stage-snaps:
-      - go

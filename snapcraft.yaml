@@ -5,7 +5,7 @@ description: |
   integrations with all major IDE and has dozens of linters included.
 version: 1.52.0
 
-base: core20
+base: core22
 confinement: strict
 grade: stable
 
@@ -28,7 +28,7 @@ parts:
       sed -i s/'"master"'/'"'"$SNAPCRAFT_PROJECT_VERSION"'"'/ cmd/golangci-lint/main.go
       sed -i s/'"?"'/'"'$(git rev-parse --short HEAD)'"'/ cmd/golangci-lint/main.go
       sed -i s/'""'/'"'$(date -u +%Y-%m-%dT%TZ)'"'/ cmd/golangci-lint/main.go
-      snapcraftctl build
+      craftctl default
 
   # golangci-lint requires a go binary in $PATH so use the go snap for this
   go:

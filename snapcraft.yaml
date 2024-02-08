@@ -1,5 +1,5 @@
 name: golangci-lint
-version: 1.55.2
+version: 1.56.0
 summary: Fast linters runner for Go
 description: |
   Runs linters in parallel, uses caching, supports yaml config, has

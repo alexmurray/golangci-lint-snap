@@ -6,15 +6,12 @@ description: |
   integrations with all major IDE and has dozens of linters included.
 
 base: core22
-confinement: strict
+confinement: classic
 grade: stable
 
 apps:
   golangci-lint:
     command: bin/golangci-lint
-    plugs:
-      - home
-      - network
 
 parts:
   golangci-lint:

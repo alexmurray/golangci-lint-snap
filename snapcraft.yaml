@@ -6,12 +6,17 @@ description: |
   integrations with all major IDE and has dozens of linters included.
 
 base: core22
-confinement: classic
+confinement: strict
 grade: stable
 
 apps:
   golangci-lint:
+    command-chain:
+      - wrapper
     command: bin/golangci-lint
+    plugs:
+      - home
+      - network
 
 parts:
   golangci-lint:
@@ -31,3 +36,7 @@ parts:
       sed -i s/'"?"'/'"'$(git rev-parse --short HEAD)'"'/ cmd/golangci-lint/main.go
       sed -i s/'""'/'"'$(date -u +%Y-%m-%dT%TZ)'"'/ cmd/golangci-lint/main.go
       craftctl default
+
+  wrapper:
+    plugin: dump
+    source: wrapper

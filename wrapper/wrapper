@@ -1,17 +1,16 @@
 #!/bin/bash
 
-# when running interactively under confinement then alert the user of the
-# classic version
+# when running under confinement then alert the user of the classic version
 if grep -q 'confinement: strict' "$SNAP/meta/snap.yaml" 2>/dev/null; then
-  if [[ $- == *i* ]]; then
-    echo "golangci-lint is now available as a classic snap, and the current"
-    echo "strictly confined version will not be maintained going forward."
-    echo "However, snapd will not automatically refresh from a strictly confined"
-    echo "version to one with classic confinement. So to use this version you"
-    echo "need to explicitly request it by executing:"
-    echo " sudo snap refresh golangci-lint --classic"
-    echo "After that golangci-lint will be available as a classic snap."
-  fi
+  echo "" >&2
+  echo "golangci-lint is now available as a classic snap, and the current" >&2
+  echo "strictly confined version will not be maintained going forward." >&2
+  echo "However, snapd will not automatically refresh from a strictly confined" >&2
+  echo "version to one with classic confinement. So to use this version you" >&2
+  echo "need to explicitly request it by executing:" >&2
+  echo " sudo snap refresh golangci-lint --classic" >&2
+  echo "After that golangci-lint will be available as a classic snap." >&2
+  echo "" >&2
 fi
 
 exec "$@"

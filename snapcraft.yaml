@@ -24,7 +24,8 @@ parts:
     build-snaps:
       - go/latest/stable
     override-build: |
-      sed -i s/'"master"'/'"'"$SNAPCRAFT_PROJECT_VERSION"'"'/ cmd/golangci-lint/main.go
-      sed -i s/'"?"'/'"'$(git rev-parse --short HEAD)'"'/ cmd/golangci-lint/main.go
-      sed -i s/'""'/'"'$(date -u +%Y-%m-%dT%TZ)'"'/ cmd/golangci-lint/main.go
+      sed -i s/'version = "unknown"'/'version = "'"$SNAPCRAFT_PROJECT_VERSION"'"'/ cmd/golangci-lint/main.go
+      sed -i s/'info.version = buildInfo.Main.Version'/'info.version = "'"$SNAPCRAFT_PROJECT_VERSION"'"'/ cmd/golangci-lint/main.go
+      sed -i s/'commit  = "?"'/'commit  = "'$(git rev-parse --short HEAD)'"'/ cmd/golangci-lint/main.go
+      sed -i s/'date    = ""'/'date    = "'$(date -u +%Y-%m-%dT%TZ)'"'/ cmd/golangci-lint/main.go
       craftctl default
